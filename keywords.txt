@@ -1,2 +1,8 @@
 Domoticz	KEYWORD1
 getData	KEYWORD2
+getTemperature  KEYWORD2
+getHumidity KEYWORD2
+getDeviceName   KEYWORD2
+getForecast KEYWORD2
+getDeviceType   KEYWORD2
+getForecastIdx  KEYWORD2
