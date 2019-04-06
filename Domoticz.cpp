@@ -87,7 +87,7 @@ int Domoticz::getData(String deviceIDX){
   
           HTTPClient http;
 
-          http.begin(client, _server + _deviceIDX);
+          http.begin(client, _server + apiCmd + _deviceIDX);
           http.setAuthorization(_username, _password);
     
           // start connection and send HTTP header
