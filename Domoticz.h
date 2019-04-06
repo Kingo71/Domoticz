@@ -59,6 +59,8 @@ class Domoticz
 		WiFiClient client;
       
 		void parseData(DynamicJsonDocument doc);
+
+		const char* apiCmd;
 	  
 };
 

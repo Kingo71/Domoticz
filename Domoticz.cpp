@@ -27,6 +27,8 @@ String _forecast;
 			
 int _forecastIdx;
 
+const char* apiCmd = "/json.htm?type=devices&rid=";
+
 
 Domoticz::Domoticz(WiFiClient client, char* server, char* username, char* password){
 
