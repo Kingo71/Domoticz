@@ -1,11 +1,7 @@
 #include "Domoticz.h"
 
-/*#include <ArduinoJson.h>
 
-#include <HTTPClient.h>
-
-#include <WiFiClient.h>
-*/
+#define API_CMD "/json.htm?type=devices&rid="
 
 char* _username;
 
@@ -26,9 +22,6 @@ String _type;
 String _forecast;
 			
 int _forecastIdx;
-
-const char* apiCmd = "/json.htm?type=devices&rid=";
-
 
 Domoticz::Domoticz(WiFiClient client, char* server, char* username, char* password){
 
@@ -81,13 +74,13 @@ int Domoticz::getPressure(){
 	
 int Domoticz::getData(String deviceIDX){
 
-          _deviceIDX = deviceIDX;
+          _deviceIDX = API_CMD + deviceIDX;
 
           DynamicJsonDocument _doc(2048);
-  
+					  
           HTTPClient http;
 
-          http.begin(client, _server + apiCmd + _deviceIDX);
+          http.begin(client, _server + _deviceIDX);
           http.setAuthorization(_username, _password);
     
           // start connection and send HTTP header
