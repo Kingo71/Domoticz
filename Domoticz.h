@@ -15,7 +15,7 @@ class Domoticz
 		
 		Domoticz(WiFiClient client, char* server, char* username, char* password);
 	        
-		void getData(String deviceIDX);
+		int getData(String deviceIDX);
 	  
 		int getTemperature();
 		
@@ -28,6 +28,8 @@ class Domoticz
 		String getDeviceType();
 		
 		int getForecastIdx();
+		
+		int getPressure();
       
 	  	  
   private:
@@ -50,14 +52,14 @@ class Domoticz
 			
 		int _forecastIdx;
 		
+		int _pressure;
+		
 		String _deviceName;
 
 		WiFiClient client;
       
 		void parseData(DynamicJsonDocument doc);
-
-		const char* apiCommand;
-			  
+	  
 };
 
 // the #include statment and code go here...

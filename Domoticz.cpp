@@ -1,5 +1,12 @@
 #include "Domoticz.h"
 
+/*#include <ArduinoJson.h>
+
+#include <HTTPClient.h>
+
+#include <WiFiClient.h>
+*/
+
 char* _username;
 
 char* _password;
@@ -19,8 +26,6 @@ String _type;
 String _forecast;
 			
 int _forecastIdx;
-
-const char* apiCommand = "/json.htm?type=devices&rid=";
 
 
 Domoticz::Domoticz(WiFiClient client, char* server, char* username, char* password){
@@ -65,7 +70,14 @@ int Domoticz::getForecastIdx(){
 	
 }
 
-void Domoticz::getData(String deviceIDX){
+int Domoticz::getPressure(){
+	
+	return _pressure;
+	
+}
+	// getData() , return HTTP_CODE
+	
+int Domoticz::getData(String deviceIDX){
 
           _deviceIDX = deviceIDX;
 
@@ -73,31 +85,28 @@ void Domoticz::getData(String deviceIDX){
   
           HTTPClient http;
 
-          http.begin(client, _server + apiCommand + _deviceIDX);
+          http.begin(client, _server + _deviceIDX);
           http.setAuthorization(_username, _password);
     
-          Serial.print("[HTTP] GET...\n");
           // start connection and send HTTP header
           int httpCode = http.GET();
       
           // httpCode will be negative on error
           if (httpCode > 0) {
-            // HTTP header has been send and Server response header has been handled
-            Serial.printf("[HTTP] GET... code: %d\n\n", httpCode);
-      
+            
+			// HTTP header has been send and Server response header has been handled
             // file found at server
-            if (httpCode == HTTP_CODE_OK) {
+            
+			if (httpCode == HTTP_CODE_OK) {
               String payload = http.getString();
               deserializeJson(_doc, payload);
-              http.end();
               parseData(_doc);
             }
-          } else {
-            Serial.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
-          }
+          } 
       
           http.end();
-  
+		  
+		return httpCode;
   }
   
   void Domoticz::parseData(DynamicJsonDocument doc){
@@ -111,7 +120,15 @@ void Domoticz::getData(String deviceIDX){
 			
 			_forecastIdx = doc["result"][0]["Forecast"];
 			_forecast = doc["result"][0]["ForecastStr"].as<char *>();
+			_pressure = doc["result"][0]["Barometer"];
 			
+		}
+		else {
+			
+			_forecastIdx = 0;
+			_forecast = "N/A";
+			_pressure = 0;
+						
 		}
 		
   }
