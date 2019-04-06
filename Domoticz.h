@@ -55,7 +55,9 @@ class Domoticz
 		WiFiClient client;
       
 		void parseData(DynamicJsonDocument doc);
-	  
+
+		const char* apiCommand;
+			  
 };
 
 // the #include statment and code go here...

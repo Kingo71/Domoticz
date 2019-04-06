@@ -20,6 +20,8 @@ String _forecast;
 			
 int _forecastIdx;
 
+const char* apiCommand = "/json.htm?type=devices&rid=";
+
 
 Domoticz::Domoticz(WiFiClient client, char* server, char* username, char* password){
 
@@ -71,7 +73,7 @@ void Domoticz::getData(String deviceIDX){
   
           HTTPClient http;
 
-          http.begin(client, _server + _deviceIDX);
+          http.begin(client, _server + apiCommand + _deviceIDX);
           http.setAuthorization(_username, _password);
     
           Serial.print("[HTTP] GET...\n");
