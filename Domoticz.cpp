@@ -1,12 +1,5 @@
 #include "Domoticz.h"
 
-/*#include <ArduinoJson.h>
-
-#include <HTTPClient.h>
-
-#include <WiFiClient.h>
-*/
-
 char* _username;
 
 char* _password;
