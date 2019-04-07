@@ -6,3 +6,4 @@ getDeviceName   KEYWORD2
 getForecast KEYWORD2
 getDeviceType   KEYWORD2
 getForecastIdx  KEYWORD2
+getPressure KEYWORD2
